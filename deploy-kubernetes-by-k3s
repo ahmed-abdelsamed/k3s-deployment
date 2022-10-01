@@ -1,3 +1,11 @@
+_    _____                 
+| | _|___ / ___ _   _ _ __  
+| |/ / |_ \/ __| | | | '_ \ 
+|   < ___) \__ \ |_| | |_) |
+|_|\_\____/|___/\__,_| .__/ 
+
+
+
 ### Install k3sup
 curl -sLS https://get.k3sup.dev | sh -
 install k3sup /usr/local/bin/
