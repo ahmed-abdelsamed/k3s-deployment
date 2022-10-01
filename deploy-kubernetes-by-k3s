@@ -1,0 +1,43 @@
+### Install k3sup
+curl -sLS https://get.k3sup.dev | sh -
+install k3sup /usr/local/bin/
+
+### Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+### Install First master
+k3sup install \
+	--host=node1 \
+	--user=root \
+	--cluster \
+	--tls-san 192.168.100.50 \
+ 	--k3s-extra-args="--node-taint node-role.kubernetes.io/master=true:NoSchedule"
+
+Note: if you want a specific kubernetes version you can use –k3s-version=v1.19.4+k3s1
+
+### Join master nodes
+k3sup join \
+	--host=node2 \
+	--server-user=root \
+	--server-host=192.168.100.51 \
+	--user=root \
+	--server \
+	--k3s-extra-args="--node-taint node-role.kubernetes.io/master=true:NoSchedule"
+
+
+### Join worker nodes
+k3sup join \
+	--host=worker1 \
+	--server-user=root \
+	--server-host=192.168.100.51 \
+	--user=root
+
+
+k3sup join \
+	--host=worker2 \
+	--server-user=root \
+	--server-host=192.168.100.51 \
+	--user=root
+
+==================================
